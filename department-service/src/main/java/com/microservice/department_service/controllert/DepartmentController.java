@@ -19,7 +19,7 @@ public class DepartmentController {
 
     @PostMapping("/save")
     public ResponseEntity<StandardResponse> createDepartment(@RequestBody DepartmentDto departmentDto){
-        String message=departmentService.saveDepartment(departmentDto);
+        DepartmentDto message=departmentService.saveDepartment(departmentDto);
         ResponseEntity<StandardResponse> response=new ResponseEntity<StandardResponse>(new StandardResponse(201,"success",message), HttpStatus.CREATED);
         return  response;
 

@@ -4,7 +4,6 @@ import com.microservice.department_service.dto.DepartmentDto;
 import com.microservice.department_service.entity.Department;
 import com.microservice.department_service.repository.DepartmentRepository;
 import com.microservice.department_service.services.DepartmentService;
-import com.microservice.department_service.utils.DepartmentMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,12 +20,13 @@ public class DepartmentServiceImpl implements DepartmentService {
     private ModelMapper modelMapper;
 
     @Override
-    public String saveDepartment(DepartmentDto departmentDto) {
+    public DepartmentDto saveDepartment(DepartmentDto departmentDto) {
+        Department department=modelMapper.map(departmentDto ,Department.class);
+        departmentRepository.save(department);
 
-        Department department=DepartmentMapper.mapToDepartment(departmentDto);
-        Department saveDepartment=departmentRepository.save(department);
+        DepartmentDto savedDepartmentDto = modelMapper.map(department, DepartmentDto.class);
+        return savedDepartmentDto;
 
-        return "";
     }
 
     @Override
