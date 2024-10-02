@@ -24,4 +24,16 @@ public class DepartmentController {
         return  response;
 
     }
+
+
+    @GetMapping(path="/get-department-by-code",params = {"code"})
+    public ResponseEntity<StandardResponse> getDepartmentByCode(@RequestParam(value="code") int code){
+
+        DepartmentDto message=departmentService.searchDepartmentByCode(code);
+        ResponseEntity<StandardResponse> response=new ResponseEntity<StandardResponse>(new StandardResponse(201,"success",message), HttpStatus.CREATED);
+        return  response;
+
+    }
+
+
 }
