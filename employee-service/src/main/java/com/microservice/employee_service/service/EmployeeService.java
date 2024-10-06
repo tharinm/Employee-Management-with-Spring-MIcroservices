@@ -6,4 +6,6 @@ public interface EmployeeService {
 
 
     String saveEmployeeService(EmployeeDTO employeeDTO);
+
+    EmployeeDTO getEmployeeById(int id);
 }

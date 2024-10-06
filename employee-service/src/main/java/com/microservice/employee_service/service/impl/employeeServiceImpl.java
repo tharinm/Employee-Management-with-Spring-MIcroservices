@@ -36,4 +36,17 @@ public class employeeServiceImpl implements EmployeeService {
 
 
     }
+
+    @Override
+    public EmployeeDTO getEmployeeById(int id) {
+
+        if(employeeRepo.existsById(id)) {
+            Employee employee = employeeRepo.getReferenceById(id);
+            EmployeeDTO employeeDTO = modelMapper.map(employee, EmployeeDTO.class);
+            return employeeDTO;
+        }
+        else{
+            throw new RuntimeException("no register employee");
+        }
+    }
 }

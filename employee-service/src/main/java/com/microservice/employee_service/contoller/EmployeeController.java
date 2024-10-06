@@ -25,4 +25,13 @@ public class EmployeeController {
         return  response;
     }
 
+    @GetMapping(value = "/get-emp-by-id",params = {"id"})
+    public ResponseEntity<StandardResponse> getEmployee(@RequestParam(value = "id") int id)
+    {
+        EmployeeDTO employeeDTO=employeeService.getEmployeeById(id);
+
+        ResponseEntity<StandardResponse> response= new ResponseEntity<StandardResponse>(new StandardResponse(201,"success",employeeDTO), HttpStatus.CREATED);
+        return response;
+    }
+
 }
