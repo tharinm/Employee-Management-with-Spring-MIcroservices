@@ -28,5 +28,7 @@ public class Employee {
     @Column(name="emp_email",length = 225,nullable = false,unique = true)
     private String email;
 
+    @Column(name="department_code",length = 225,unique = true)
+    private String departmentCode;
 
 }
