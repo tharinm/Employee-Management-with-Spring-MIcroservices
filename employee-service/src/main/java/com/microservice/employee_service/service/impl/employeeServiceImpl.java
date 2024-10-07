@@ -47,10 +47,12 @@ public class employeeServiceImpl implements EmployeeService {
 
         if(employeeRepo.existsById(id)) {
             Employee employee = employeeRepo.getReferenceById(id);
+            System.out.println("Employee Department Code: " + employee.getDepartmentCode());
 
             ResponseEntity<DepartmentDto> responseEntity=restTemplate.getForEntity("http://localhost:8080/api/department/get-department-by-code?code=" + employee.getDepartmentCode(), DepartmentDto.class);
 
-            System.out.println("Department Service Response: " + responseEntity);
+            System.out.println("Response Body: " + responseEntity.getBody());
+
 
             DepartmentDto departmentDto=responseEntity.getBody();
 
