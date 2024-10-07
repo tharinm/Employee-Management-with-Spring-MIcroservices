@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 
 @Service
@@ -23,8 +24,11 @@ public class employeeServiceImpl implements EmployeeService {
     @Autowired
     private ModelMapper modelMapper;
 
+//    @Autowired
+//    private RestTemplate restTemplate;
+
     @Autowired
-    private RestTemplate restTemplate;
+    private  WebClient webClient;
 
     @Override
     public String saveEmployeeService(EmployeeDTO employeeDTO) {
@@ -49,12 +53,18 @@ public class employeeServiceImpl implements EmployeeService {
             Employee employee = employeeRepo.getReferenceById(id);
             System.out.println("Employee Department Code: " + employee.getDepartmentCode());
 
-            ResponseEntity<DepartmentDto> responseEntity=restTemplate.getForEntity("http://localhost:8080/api/department/get-department-by-code?code=" + employee.getDepartmentCode(), DepartmentDto.class);
+//            ResponseEntity<DepartmentDto> responseEntity=restTemplate.getForEntity("http://localhost:8080/api/department/get-department-by-code?code=" + employee.getDepartmentCode(), DepartmentDto.class);
+//
+//            System.out.println("Response Body: " + responseEntity.getBody());
+//
+//
+//            DepartmentDto departmentDto=responseEntity.getBody();
 
-            System.out.println("Response Body: " + responseEntity.getBody());
-
-
-            DepartmentDto departmentDto=responseEntity.getBody();
+           DepartmentDto departmentDto= webClient.get()
+                    .uri("http://localhost:8080/api/department/get-department-by-code?code=" + employee.getDepartmentCode())
+                    .retrieve()
+                    .bodyToMono(DepartmentDto.class)
+                    .block();
 
             EmployeeDTO employeeDTO = modelMapper.map(employee, EmployeeDTO.class);
 //            DepartmentDto departmentDto1=modelMapper.map()
