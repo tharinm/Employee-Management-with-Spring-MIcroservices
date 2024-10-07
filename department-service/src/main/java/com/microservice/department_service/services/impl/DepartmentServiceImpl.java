@@ -30,9 +30,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public DepartmentDto searchDepartmentByCode(int code) {
+    public DepartmentDto searchDepartmentByCode(String code) {
 
-        Department department=departmentRepository.getReferenceById(code);
+        Department department=departmentRepository.findByDepartmentCode(code);
 
         DepartmentDto departmentDto=modelMapper.map(department,DepartmentDto.class);
         return  departmentDto;

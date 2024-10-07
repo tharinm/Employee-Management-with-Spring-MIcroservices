@@ -1,6 +1,7 @@
 package com.microservice.employee_service.contoller;
 
 
+import com.microservice.employee_service.dto.ApiResponseDto;
 import com.microservice.employee_service.dto.EmployeeDTO;
 import com.microservice.employee_service.service.EmployeeService;
 import com.microservice.employee_service.utils.StandardResponse;
@@ -28,9 +29,9 @@ public class EmployeeController {
     @GetMapping(value = "/get-emp-by-id",params = {"id"})
     public ResponseEntity<StandardResponse> getEmployee(@RequestParam(value = "id") int id)
     {
-        EmployeeDTO employeeDTO=employeeService.getEmployeeById(id);
+        ApiResponseDto apiResponseDto=employeeService.getEmployeeById(id);
 
-        ResponseEntity<StandardResponse> response= new ResponseEntity<StandardResponse>(new StandardResponse(201,"success",employeeDTO), HttpStatus.CREATED);
+        ResponseEntity<StandardResponse> response= new ResponseEntity<StandardResponse>(new StandardResponse(201,"success",apiResponseDto), HttpStatus.CREATED);
         return response;
     }
 
