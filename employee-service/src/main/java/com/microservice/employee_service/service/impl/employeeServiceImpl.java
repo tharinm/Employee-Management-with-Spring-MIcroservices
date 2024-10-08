@@ -5,6 +5,7 @@ import com.microservice.employee_service.dto.DepartmentDto;
 import com.microservice.employee_service.dto.EmployeeDTO;
 import com.microservice.employee_service.entity.Employee;
 import com.microservice.employee_service.repository.EmployeeRepo;
+import com.microservice.employee_service.service.APIClient;
 import com.microservice.employee_service.service.EmployeeService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,12 @@ public class employeeServiceImpl implements EmployeeService {
 //    @Autowired
 //    private RestTemplate restTemplate;
 
+//    @Autowired
+//    private  WebClient webClient;
+//
+
     @Autowired
-    private  WebClient webClient;
+    private APIClient apiClient;
 
     @Override
     public String saveEmployeeService(EmployeeDTO employeeDTO) {
@@ -60,11 +65,13 @@ public class employeeServiceImpl implements EmployeeService {
 //
 //            DepartmentDto departmentDto=responseEntity.getBody();
 
-           DepartmentDto departmentDto= webClient.get()
-                    .uri("http://localhost:8080/api/department/get-department-by-code?code=" + employee.getDepartmentCode())
-                    .retrieve()
-                    .bodyToMono(DepartmentDto.class)
-                    .block();
+//           DepartmentDto departmentDto= webClient.get()
+//                    .uri("http://localhost:8080/api/department/get-department-by-code?code=" + employee.getDepartmentCode())
+//                    .retrieve()
+//                    .bodyToMono(DepartmentDto.class)
+//                    .block();
+
+            DepartmentDto departmentDto= apiClient.getDepartment(employee.getDepartmentCode());
 
             EmployeeDTO employeeDTO = modelMapper.map(employee, EmployeeDTO.class);
 //            DepartmentDto departmentDto1=modelMapper.map()
