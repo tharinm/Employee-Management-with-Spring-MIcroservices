@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="api-gateway" />
         <module name="department-service" />
+        <module name="Config-Server" />
         <module name="service-registry" />
         <module name="employee-service" />
       </profile>
@@ -16,6 +17,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Config-Server" options="-parameters" />
       <module name="api-gateway" options="-parameters" />
       <module name="department-service" options="-parameters" />
       <module name="employee-service" options="-parameters" />
